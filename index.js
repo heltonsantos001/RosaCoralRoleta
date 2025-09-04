@@ -1,22 +1,16 @@
 import express from "express";
+import cors from "cors";
 import { router } from "./Routes/RouteRoleta.js";
 
 const app = express();
 app.use(express.json());
 
-// Middleware CORS completo
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://www.userosacoral.com");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  // Responde a requisições preflight OPTIONS
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
+// Permitir apenas o domínio específico
+app.use(cors({
+  origin: "https://www.userosacoral.com",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
+}));
 
 // Rotas
 app.use("/registra-brinde", router);
