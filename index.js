@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import serverless from "serverless-http";
-import fetch from "node-fetch";
 
 const app = express();
 app.use(express.json());
@@ -22,6 +21,7 @@ app.post("/registra-brinde", async (req, res) => {
   }
 
   try {
+    // fetch nativo do Node.js 18+ no Vercel
     const response = await fetch(
       "https://script.google.com/macros/s/AKfycbyhBQnWv7CNDHv9udx6H7dJuRQm8lD2GNGNEK__HloYqEi4UZbc-MOC-jEyAUq30oH4_Q/exec",
       {
@@ -43,10 +43,10 @@ app.post("/registra-brinde", async (req, res) => {
     res.json(data);
 
   } catch (err) {
-    console.error(err);
+    console.error("Erro interno:", err);
     res.status(500).json({ sucesso: false, mensagem: "Erro interno" });
   }
 });
 
-// Exporta a função serverless
+// Exporta como função serverless
 export default serverless(app);
