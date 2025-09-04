@@ -1,7 +1,7 @@
 import express from "express"
-const router = express.Router
-import {RoletaControllerPost} from "./../controller/RoletaController"
+const router = express.Router();
+import {RoletaControllerPost} from "./../controller/RoletaController.js"
 
-router.post("/", RoletaControllerPost)
-
-module.exports = router;
+ router.post("/", RoletaControllerPost)
+ 
+ export {router}
